@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MunicipalServicesApp", "Mun
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{759103D6-0978-43FE-A9B5-64B7DB640292}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{DC391AB1-2A00-49F7-8F27-6967C7FDA596}"
 	ProjectSection(SolutionItems) = preProject
-		dotnet.yml = dotnet.yml
+		main.yml = main.yml
 	EndProjectSection
 EndProject
 Global
@@ -27,9 +27,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{759103D6-0978-43FE-A9B5-64B7DB640292} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {FBFDCB80-EF69-4F02-B274-5715EDB9A119}
+		{DC391AB1-2A00-49F7-8F27-6967C7FDA596} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 EndGlobal

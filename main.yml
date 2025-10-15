@@ -1,0 +1,33 @@
+name: .NET Build & Test
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+  pull_request:
+    branches:
+      - master
+      - dev
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x  
+
+      - name: Restore dependencies
+        run: dotnet restore ./MunicipalServicesApp/MunicipalServicesApp.csproj
+
+      - name: Build
+        run: dotnet build ./MunicipalServicesApp/MunicipalServicesApp.csproj --configuration Release --no-restore
+
+      - name: Run tests
+        run: dotnet test ./MunicipalServicesApp/MunicipalServicesApp.csproj --no-build --verbosity normal
