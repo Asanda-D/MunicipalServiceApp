@@ -36,9 +36,6 @@ The system demonstrates practical use of MVC architecture, session-based authent
 
 ---
 
-
-Run
-Copy code
  ## Setup Instructions
 
  1. **Clone the Repository**  
