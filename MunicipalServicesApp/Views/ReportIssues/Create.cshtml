@@ -1,0 +1,70 @@
+﻿@model MunicipalServicesApp.Models.Issue
+@{
+    ViewData["Title"] = "Report an Issue";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm p-4">
+                <h3 class="card-title text-center" style="color:#2C64B4;">Report an Issue</h3>
+
+                <!-- Success message after submission -->
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show text-center mb-3" role="alert">
+                        @TempData["SuccessMessage"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+
+                <!-- Motivational Message -->
+                @if (ViewBag.Motivation != null)
+                {
+                    <div class="alert alert-info text-center mb-3">
+                        @ViewBag.Motivation
+                    </div>
+                }
+
+                <form asp-action="Create" asp-controller="ReportIssues" method="post" enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Location" class="form-label"></label>
+                        <input asp-for="Location" class="form-control" placeholder="Enter location" />
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Category" class="form-label"></label>
+                        <select asp-for="Category" class="form-control" asp-items="@(new SelectList(ViewBag.Categories))">
+                            <option value="">Select a category</option>
+                        </select>
+                        <span asp-validation-for="Category" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Description" class="form-label"></label>
+                        <textarea asp-for="Description" class="form-control" rows="5" placeholder="Enter detailed description"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label">Attach an image or document (optional)</label>
+                        <input type="file" name="attachment" class="form-control" />
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="submit" class="btn btn-primary">Submit Issue</button>
+                        <a asp-action="List" asp-controller="ReportIssues" class="btn btn-secondary">View Submissions</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

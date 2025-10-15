@@ -1,0 +1,109 @@
+/* site.css */
+
+/* ========= Sticky Footer Layout ========= */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin-bottom: 0; /* prevent Bootstrap pushing footer */
+}
+
+main {
+    flex: 1; /* pushes footer to the bottom */
+}
+
+/* ========= General Styling ========= */
+
+/* General text */
+body {
+    background-color: #ffffff;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Primary buttons */
+.btn-primary {
+    background-color: #2C64B4;
+    border-color: #2C64B4;
+}
+
+    .btn-primary:hover {
+        background-color: #244f8d;
+        border-color: #244f8d;
+    }
+
+/* Secondary/Accent buttons */
+.btn-secondary {
+    background-color: cadetblue;
+    border-color: cadetblue;
+}
+
+    .btn-secondary:hover {
+        background-color: #4e8f91;
+        border-color: #4e8f91;
+    }
+
+/* Cards */
+.card {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    border: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #ffffff; /* keep cards white for contrast */
+    padding: 25px;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+/* Card titles */
+.card-title {
+    color: #2C64B4;
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+/* Card text */
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+/* Buttons inside cards */
+.card .btn-primary {
+    background-color: #2C64B4;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 6px;
+}
+
+    .card .btn-primary:hover {
+        background-color: #244f8d;
+    }
+
+/* Consistent spacing between cards */
+.row.justify-content-center > .col-md-4 {
+    display: flex;
+    align-items: stretch; /* ensures all cards same height */
+}
+
+/* Form controls */
+.form-control:focus {
+    border-color: #2C64B4;
+    box-shadow: 0 0 5px rgba(44,100,180,0.5);
+}
+
+/*Badges consistency*/
+.badge-lg {
+    font-size: 0.8rem;
+    padding: 0.5em 0.75em; /* makes the badge slightly bigger overall */
+}

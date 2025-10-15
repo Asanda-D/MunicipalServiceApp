@@ -1,0 +1,114 @@
+﻿@model IEnumerable<MunicipalServicesApp.Models.EventItem>
+@{
+    ViewData["Title"] = "Local Events & Announcements";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    @if (TempData["Info"] != null)
+    {
+        <div class="alert alert-info">@TempData["Info"]</div>
+    }
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card p-3 mb-3">
+                <h3 class="mb-3">Search Events</h3>
+                <form asp-action="Search" method="post" class="row g-2">
+                    @Html.AntiForgeryToken()
+                    <div class="col-md-5">
+                        <input type="text" name="keyword" class="form-control" placeholder="Search by keyword" value="@((ViewBag.SearchParams?.keyword) ?? "")"/>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="category" class="form-select">
+                            <option value="">All categories</option>
+                            @foreach(var c in (IEnumerable<string>)ViewBag.Categories)
+                            {
+                                <option value="@c" selected="@(ViewBag.SearchParams?.category == c ? "selected" : null)">
+                                    @c
+                                </option>
+
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="date" name="from" class="form-control" value="@(ViewBag.SearchParams?.from is DateTime fd ? fd.ToString("yyyy-MM-dd") : "")" />
+                    </div>
+                    <div class="col-md-2">
+                        <input type="date" name="to" class="form-control" value="@(ViewBag.SearchParams?.to is DateTime td ? td.ToString("yyyy-MM-dd") : "")" />
+                    </div>
+                    <div class="col-12 mt-2">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                        <a asp-action="Index" class="btn btn-secondary ms-2">Reset</a>
+                    </div>
+                </form>
+
+                @if ((IEnumerable<string>)ViewBag.RecentSearches != null && ((IEnumerable<string>)ViewBag.RecentSearches).Any())
+                {
+                    <form asp-action="ClearSearches" asp-controller="Events" method="post" class="mt-2">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger">Clear Searches</button>
+                    </form>
+                }
+
+            </div>
+
+            @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+            @if (HttpContextAccessor.HttpContext.Session.GetString("IsAdmin") == "true")
+            {
+                <a asp-action="Add" class="btn btn-success mb-3">Add Event</a>
+            }
+
+            @foreach (var ev in Model)
+            {
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100 shadow-sm p-3">
+                        <h5 class="card-title">@ev.Title</h5>
+                        <p class="text-muted small">
+                            @ev.Category •
+                            @ev.StartDate.ToString("dd MMM yyyy, HH:mm")
+                            -
+                            @ev.EndDate.ToString("HH:mm")
+                        </p>
+                        <p>@ev.Description</p>
+                        <p class="small text-muted mb-2">@ev.Location</p>
+
+                        @if (!string.IsNullOrEmpty(ev.AttachmentPath))
+                        {
+                            <a href="@Url.Content(ev.AttachmentPath)" target="_blank" class="btn btn-outline-primary btn-sm">
+                                View Attachment
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                @if (Context.Session.GetString("IsAdmin") == "true")
+                {
+                    <div class="mt-2">
+                        <a asp-controller="Events" asp-action="Edit" asp-route-id="@ev.Id" class="btn btn-warning btn-sm">Edit</a>
+                        <form asp-controller="Events" asp-action="Delete" asp-route-id="@ev.Id" method="post" style="display:inline;">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </div>
+                }
+            }
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card p-3">
+                <h5>Recommended for you</h5>
+                <hr />
+                @await Html.PartialAsync("_Recommendations", ViewBag.Recommendations as IEnumerable<MunicipalServicesApp.Models.EventItem>)
+                <hr />
+                <h6>Recent searches</h6>
+                <div style="max-height: 150px; overflow-y:auto;">
+                    @foreach (var s in (IEnumerable<string>)ViewBag.RecentSearches ?? new List<string>())
+                    {
+                        <span class="badge badge-lg bg-secondary text-white me-1 mb-1">@s</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

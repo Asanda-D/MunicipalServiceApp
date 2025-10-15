@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Main Menu";
+}
+
+<div class="container text-center mt-5">
+    <h2 class="mb-4" style="color:#2C64B4;">Welcome to the Municipal Services Portal</h2>
+    <p class="lead mb-5">Assist your community by reporting issues and staying updated with municipal services.</p>
+
+    <div class="row justify-content-center">
+        <!-- Report Issues -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100 border-0">
+                <div class="card-body">
+                    <h5 class="card-title" style="color:#2C64B4;">Report Issues</h5>
+                    <p class="card-text">Quickly report service delivery issues in your community.</p>
+                    <a asp-controller="ReportIssues" asp-action="Create" class="btn btn-primary" style="background-color:#2C64B4; border:none;">
+                        Report Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+		<!-- Local Events -->
+		<div class="col-md-4 mb-4">
+			<div class="card shadow-sm h-100 border-0">
+				<div class="card-body">
+					<h5 class="card-title" style="color:#2C64B4;">Local Events</h5>
+					<p class="card-text">Stay updated on community and municipal events.</p>
+                    <a asp-controller="Events" asp-action="Index" class="btn btn-primary" style="background-color:#2C64B4; border:none;">
+                        Local Events
+                    </a>
+				</div>
+			</div>
+		</div>
+
+        <!-- Service Status -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100 border-0">
+                <div class="card-body">
+                    <h5 class="card-title" style="color:#2C64B4;">Service Status</h5>
+                    <p class="card-text">Check the current status of municipal services.</p>
+                    <button class="btn btn-secondary" disabled>Coming Soon</button>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
