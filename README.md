@@ -64,6 +64,7 @@ The application emphasizes **dignity, respect, and efficiency**—ensuring that 
 
 ## Folder Structure
 
+```
 MunicipalServicesApp/
 ├─ Controllers/
 │   └─ ReportIssuesController.cs
@@ -83,6 +84,7 @@ MunicipalServicesApp/
 │   └─ Uploads/
 ├─ Program.cs
 └─ README.md
+```
 
 ---
 
