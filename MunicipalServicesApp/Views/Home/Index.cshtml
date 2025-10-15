@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container mt-5">
+    <!-- Hero Section -->
+    <div class="row align-items-center bg-light rounded shadow-lg p-5" style="background: linear-gradient(135deg, #ffffff 0%, #5f9ea0 100%);">
+        <!-- Text Column -->
+        <div class="col-md-6 mb-4 mb-md-0">
+            <h1 class="display-3 fw-bold mb-4" style="line-height: 1.2; color:#2C64B4;">
+                Welcome to South African Municipal Services
+            </h1>
+            <p class="lead text-secondary mb-3">
+                Serving the community with dignity, respect, and efficiency. Our municipal workers are dedicated to maintaining a safe and thriving environment for all.
+            </p>
+            <p class="text-muted mb-4">
+                Mutual respect is key: we provide services with care, and we ask citizens to engage courteously. Together, we build a stronger, connected community.
+            </p>
+            <a asp-controller="MainMenu" asp-action="Index" class="btn btn-primary btn-lg shadow-sm"
+               style="transition: transform 0.2s; font-weight:600;">
+                Go To Main Menu
+            </a>
+        </div>
+
+        <!-- Image Column -->
+        <div class="col-md-6 text-center">
+            <img src="~/images/safaflag.jpg" alt="Municipality Service"
+                 class="img-fluid rounded shadow" style="max-height:400px; transition: transform 0.3s;"
+                 onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+		</div>
+    </div>
+</div>
+
+    <!-- Info Cards Section -->
+    <div class="row mt-5">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm p-4 h-100">
+                <h5 class="card-title text-primary">Community Services</h5>
+                <p class="card-text">We handle sanitation, road maintenance, utilities, and other essential services to keep our municipality clean, safe, and efficient.</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm p-4 h-100">
+                <h5 class="card-title text-primary">Citizen Engagement</h5>
+                <p class="card-text">Your feedback matters! Report issues, provide suggestions, and help us improve the way we serve our community.</p>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm p-4 h-100">
+                <h5 class="card-title text-primary">Respect & Collaboration</h5>
+                <p class="card-text">Mutual respect between citizens and municipal staff ensures a positive environment for everyone. We’re here to serve you, but let’s work together with courtesy and understanding.</p>
+            </div>
+        </div>
+    </div>

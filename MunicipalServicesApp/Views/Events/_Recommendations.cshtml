@@ -1,0 +1,20 @@
+﻿@model IEnumerable<MunicipalServicesApp.Models.EventItem>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No recommendations available yet.</p>
+}
+else
+{
+    <ul class="list-unstyled">
+        @foreach (var ev in Model)
+        {
+            <li class="mb-2">
+                <div>
+                    <strong>@ev.Title</strong><br />
+                    <small class="text-muted">@ev.Category • @ev.StartDate.ToString("dd MMM")</small>
+                </div>
+            </li>
+        }
+    </ul>
+}
