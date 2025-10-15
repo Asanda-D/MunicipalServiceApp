@@ -23,37 +23,18 @@ The system demonstrates practical use of MVC architecture, session-based authent
 - **Secure Access** – Admin authentication using session management.
 
 ## Technologies Used
-Category
 
-Technology
+| Category | Technology |
+|-----------|-------------|
+| Framework | ASP.NET Core MVC (.NET 8.0) |
+| Language | C# |
+| UI Framework | Bootstrap 5 |
+| Storage | In-Memory Collections (via `EventsService`) |
+| Version Control | Git & GitHub |
+| Continuous Integration | GitHub Actions |
+| IDE | Visual Studio 2022 |
 
-Framework
-
-ASP.NET Core MVC (.NET 8.0)
-
-Language
-
-C#
-
-UI Framework
-
-Bootstrap 5
-
-Storage
-
-In-Memory Collections (via EventsService)
-
-Version Control
-
-Git & GitHub
-
-Continuous Integration
-
-GitHub Actions
-
-IDE
-
-Visual Studio 2022
+---
 
 
 Run
@@ -127,4 +108,3 @@ Copy code
  Asanda Dimba  
  Web & Application Developer  
  Varsity College – Westville Campus
- ```
