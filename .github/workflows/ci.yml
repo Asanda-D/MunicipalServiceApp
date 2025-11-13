@@ -21,10 +21,10 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore MunicipalServicesApp.sln
+        run: dotnet restore ./MunicipalServicesApp.csproj
 
       - name: Build project
-        run: dotnet build MunicipalServicesApp.sln --configuration Release
+        run: dotnet build ./MunicipalServicesApp.csproj --configuration Release
 
       - name: Run Snyk scan
         uses: snyk/actions/dotnet@master
