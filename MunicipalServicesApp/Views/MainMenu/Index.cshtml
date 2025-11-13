@@ -20,28 +20,35 @@
             </div>
         </div>
 
-		<!-- Local Events -->
-		<div class="col-md-4 mb-4">
-			<div class="card shadow-sm h-100 border-0">
-				<div class="card-body">
-					<h5 class="card-title" style="color:#2C64B4;">Local Events</h5>
-					<p class="card-text">Stay updated on community and municipal events.</p>
-                    <a asp-controller="Events" asp-action="Index" class="btn btn-primary" style="background-color:#2C64B4; border:none;">
-                        Local Events
-                    </a>
-				</div>
-			</div>
-		</div>
-
-        <!-- Service Status -->
+        <!-- Local Events -->
         <div class="col-md-4 mb-4">
             <div class="card shadow-sm h-100 border-0">
                 <div class="card-body">
-                    <h5 class="card-title" style="color:#2C64B4;">Service Status</h5>
-                    <p class="card-text">Check the current status of municipal services.</p>
-                    <button class="btn btn-secondary" disabled>Coming Soon</button>
+                    <h5 class="card-title" style="color:#2C64B4;">Local Events</h5>
+                    <p class="card-text">Stay updated on community and municipal events.</p>
+                    <a asp-controller="Events" asp-action="Index" class="btn btn-primary" style="background-color:#2C64B4; border:none;">
+                        Local Events
+                    </a>
                 </div>
             </div>
         </div>
-	</div>
+
+        <!-- Service Requests / Track -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100 border-0">
+                <div class="card-body">
+                    <h5 class="card-title" style="color:#2C64B4;">Service Requests</h5>
+                    <p class="card-text">View all submitted service requests or track a specific request by ID.</p>
+                    <div class="d-grid gap-2">
+                        <a asp-controller="ServiceRequests" asp-action="Index" class="btn btn-primary" style="background-color:#2C64B4; border:none;">
+                            View Requests
+                        </a>
+                        <a asp-controller="ServiceRequests" asp-action="Track" class="btn btn-secondary" style="border:none;">
+                            Track by ID
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

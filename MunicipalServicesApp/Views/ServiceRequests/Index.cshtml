@@ -1,0 +1,46 @@
+@model IEnumerable<MunicipalServicesApp.Models.ServiceRequest>
+@{
+    ViewData["Title"] = "Service Requests";
+}
+
+<h2>Service Requests</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Submitted At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var req in Model)
+        {
+            <tr>
+                <td>@("SR" + req.Id)</td>
+                <td>@req.Title</td>
+                <td>@req.Category</td>
+                <td>@req.Location</td>
+                <td>@req.Status</td>
+                <td>@req.Priority</td>
+                <td>@req.SubmittedAt.ToString("g")</td>
+                <td>
+                    <a class="btn btn-sm btn-info" href="@Url.Action("Details", "ServiceRequests", new { id = req.Id })">View</a>
+
+                    @if (ViewContext.HttpContext.Session.GetString("IsAdmin") == "true")
+                    {
+                        <a class="btn btn-sm btn-warning" href="@Url.Action("Edit", "ServiceRequests", new { id = req.Id })">Edit</a>
+                        <a class="btn btn-sm btn-danger" href="@Url.Action("Delete", "ServiceRequests", new { id = req.Id })">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="@Url.Action("Create", "ServiceRequests")">Submit New Request</a>

@@ -1,17 +1,22 @@
 ﻿@model IEnumerable<MunicipalServicesApp.Models.EventItem>
 
+@* Check if there are any event recommendations to display *@
 @if (Model == null || !Model.Any())
 {
     <p>No recommendations available yet.</p>
 }
 else
 {
+    @* Displays a list of event recommendations *@
     <ul class="list-unstyled">
+        @* Loops through each event item in the model *@
         @foreach (var ev in Model)
         {
             <li class="mb-2">
                 <div>
+                    @* Shows the event title *@
                     <strong>@ev.Title</strong><br />
+                    @* Shows the event category and formatted start date *@
                     <small class="text-muted">@ev.Category • @ev.StartDate.ToString("dd MMM")</small>
                 </div>
             </li>

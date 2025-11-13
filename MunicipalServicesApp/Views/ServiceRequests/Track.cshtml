@@ -1,0 +1,62 @@
+@{
+    ViewData["Title"] = "Track Service Request";
+}
+
+<h2>Track Service Request</h2>
+
+<form id="trackForm">
+    <div class="mb-3">
+        <label for="srId" class="form-label">Enter Request ID:</label>
+        <input type="text" id="srId" name="srId" class="form-control" placeholder="e.g. SR1" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Track</button>
+</form>
+
+<!-- Modal -->
+<div class="modal fade" id="requestModal" tabindex="-1" aria-labelledby="requestModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="requestModalLabel">Service Request Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Populated dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+<script>
+    $(function() {
+        $("#trackForm").submit(function(e) {
+            e.preventDefault();
+            var srId = $("#srId").val();
+            $.post("@Url.Action("TrackRequest")", { srId: srId }, function(result) {
+                if(result.success) {
+                    var html = "<table class='table'>";
+                    html += "<tr><th>ID</th><td>" + result.data.srId + "</td></tr>";
+                    html += "<tr><th>Title</th><td>" + result.data.title + "</td></tr>";
+                    html += "<tr><th>Status</th><td>" + result.data.status + "</td></tr>";
+                    html += "<tr><th>Priority</th><td>" + result.data.priority + "</td></tr>";
+                    html += "<tr><th>Submitted At</th><td>" + result.data.submittedAt + "</td></tr>";
+                    html += "<tr><th>Description</th><td>" + result.data.description + "</td></tr>";
+                    if(result.data.attachmentPath)
+                        html += "<tr><th>Attachment</th><td><a href='" + result.data.attachmentPath + "' target='_blank'>View</a></td></tr>";
+                    html += "</table>";
+
+                    $("#modalBody").html(html);
+                    var modal = new bootstrap.Modal(document.getElementById('requestModal'));
+                    modal.show();
+                } else {
+                    alert(result.message);
+                }
+            });
+        });
+    });
+</script>
+}

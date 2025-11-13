@@ -12,8 +12,7 @@ namespace MunicipalServicesApp.Models
         public string Location { get; set; }
 
         [Required(ErrorMessage = "Category is required.")]
-        [StringLength(50)]
-        public string Category { get; set; }
+        public string Category { get; set; } = "";
 
         [Required(ErrorMessage = "Description is required.")]
         [StringLength(1000, ErrorMessage = "Description cannot exceed 1000 characters.")]

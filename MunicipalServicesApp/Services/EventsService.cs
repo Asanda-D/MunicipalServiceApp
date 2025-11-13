@@ -8,6 +8,20 @@ namespace MunicipalServicesApp.Services
     // Simple in-memory repository / service demonstrating data structures
     public class EventsService
     {
+        private static readonly List<string> categories = new List<string>
+        {
+            "Community Engagement",
+            "Health & Wellness",
+            "Education & Training",
+            "Environmental Awareness",
+            "Public Safety",
+            "Infrastructure",
+            "Cultural Events",
+            "Youth Development",
+            "Sports & Recreation",
+            "Other"
+        };
+
         // Master list
         private readonly List<EventItem> _events = new();
 
@@ -18,7 +32,7 @@ namespace MunicipalServicesApp.Services
         private readonly SortedDictionary<DateTime, List<EventItem>> _byDate = new();
 
         // Set of categories
-        private readonly HashSet<string> _categories = new(StringComparer.OrdinalIgnoreCase);
+        private readonly HashSet<string> _categories = new(categories, StringComparer.OrdinalIgnoreCase);
 
         // Recent searches queue (keeps order, FIFO)
         private readonly Queue<string> _recentSearches = new();

@@ -6,7 +6,7 @@ namespace MunicipalServicesApp.Controllers
     {
         // Hardcoded credentials
         private const string AdminUsername = "admin";
-        private const string AdminPassword = "Pass123"; // you can change this
+        private const string AdminPassword = "Pass123"; 
 
         // GET: Admin/Login
         public IActionResult Login()

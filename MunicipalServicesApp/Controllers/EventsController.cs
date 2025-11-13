@@ -12,22 +12,27 @@ namespace MunicipalServicesApp.Controllers
         private readonly ILogger<EventsController> _logger;
         private readonly IWebHostEnvironment _env;
 
+        // Constructor: injects the EventsService, Logger, and WebHostEnvironment for file handling
         public EventsController(EventsService eventsService, ILogger<EventsController> logger, IWebHostEnvironment env)
         {
             _eventsService = eventsService;
             _logger = logger;
+            _env = env;
         }
 
         // GET: Events/Index
+        // Displays all events, including categories, top recommendations, and recent searches
         public IActionResult Index()
         {
             ViewBag.Categories = _eventsService.GetCategories();
             ViewBag.Recommendations = _eventsService.RecommendTop(5);
-            ViewBag.RecentSearches = _eventsService.RecentSearches; // ← Add this line
+            ViewBag.RecentSearches = _eventsService.RecentSearches; 
             var all = _eventsService.GetAllEvents();
             return View(all);
         }
+
         // POST: Events/Search
+        // Searches events based on keyword, category, and date range
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Search(string? keyword, string? category, DateTime? from, DateTime? to)
@@ -35,11 +40,12 @@ namespace MunicipalServicesApp.Controllers
             ViewBag.Categories = _eventsService.GetCategories();
             var results = _eventsService.Search(keyword, category, from, to);
             ViewBag.Recommendations = _eventsService.RecommendTop(5);
-            ViewBag.RecentSearches = _eventsService.RecentSearches; // ← Add here too
+            ViewBag.RecentSearches = _eventsService.RecentSearches; 
             return View("Index", results);
         }
 
         // GET: Events/ListRecommendations (AJAX partial)
+        // Returns a partial view containing the top recommended events
         public IActionResult ListRecommendations()
         {
             var recommendations = _eventsService.RecommendTop(5);
@@ -47,6 +53,7 @@ namespace MunicipalServicesApp.Controllers
         }
 
         // GET: Events/Add
+        // Displays the Add Event form, accessible only by admin users
         public IActionResult Add()
         {
             if (HttpContext.Session.GetString("IsAdmin") != "true")
@@ -57,20 +64,25 @@ namespace MunicipalServicesApp.Controllers
         }
 
         // POST: Events/Add
+        // Handles form submission for adding a new event and optional file upload
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(EventItem model, IFormFile? attachment)
         {
+            ViewBag.Categories = _eventsService.GetCategories();
+            
+            // Restrict access to admin users
             if (HttpContext.Session.GetString("IsAdmin") != "true")
                 return Unauthorized();
 
+            // Validate model before processing
             if (!ModelState.IsValid)
             {
                 ViewBag.Categories = _eventsService.GetCategories();
                 return View(model);
             }
 
-            // Handle optional file upload
+            // Handle optional file upload (e.g., images or documents)
             if (attachment != null && attachment.Length > 0)
             {
                 var uploadsDir = Path.Combine(_env.WebRootPath, "Uploads");
@@ -88,12 +100,14 @@ namespace MunicipalServicesApp.Controllers
                 model.AttachmentPath = "/Uploads/" + fileName;
             }
 
+            // Add event to service and save
             _eventsService.AddEvent(model);
             TempData["Success"] = "Event added successfully!";
             return RedirectToAction("Index");
         }
 
         // GET: Events/Edit
+        // Displays the Edit form for an existing event
         public IActionResult Edit(int id)
         {
             var ev = _eventsService.GetEventById(id);
@@ -103,6 +117,8 @@ namespace MunicipalServicesApp.Controllers
             return View(ev);
         }
 
+        // POST: Events/Edit
+        // Updates existing event details and handles optional new file upload
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(EventItem model, IFormFile? attachment)
@@ -110,7 +126,7 @@ namespace MunicipalServicesApp.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            // Handle attachment upload
+            // If a new file is uploaded, save it and update the path
             if (attachment != null && attachment.Length > 0)
             {
                 var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
@@ -133,6 +149,8 @@ namespace MunicipalServicesApp.Controllers
             return RedirectToAction("Index", "Events");
         }
 
+        // POST: Events/Delete
+        // Deletes an event and redirects back to the Index page
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
@@ -142,7 +160,8 @@ namespace MunicipalServicesApp.Controllers
             return RedirectToAction("Index", "Events");
         }
 
-        // Clear all searches
+        // POST: Events/ClearSearches
+        // Clears all recent search history and reloads the Index view
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ClearSearches()

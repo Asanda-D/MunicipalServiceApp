@@ -1,23 +1,30 @@
 ﻿@model IEnumerable<MunicipalServicesApp.Models.EventItem>
 @{
     ViewData["Title"] = "Local Events & Announcements";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Use the main layout
 }
 
 <div class="container mt-4">
+    <!-- Show info messages if any -->
     @if (TempData["Info"] != null)
     {
         <div class="alert alert-info">@TempData["Info"]</div>
     }
+
     <div class="row">
         <div class="col-lg-8">
+            <!-- Search form card -->
             <div class="card p-3 mb-3">
                 <h3 class="mb-3">Search Events</h3>
                 <form asp-action="Search" method="post" class="row g-2">
-                    @Html.AntiForgeryToken()
+                    @Html.AntiForgeryToken() <!-- CSRF protection -->
+                    
+                    <!-- Keyword input -->
                     <div class="col-md-5">
                         <input type="text" name="keyword" class="form-control" placeholder="Search by keyword" value="@((ViewBag.SearchParams?.keyword) ?? "")"/>
                     </div>
+
+                    <!-- Category dropdown -->
                     <div class="col-md-3">
                         <select name="category" class="form-select">
                             <option value="">All categories</option>
@@ -26,22 +33,28 @@
                                 <option value="@c" selected="@(ViewBag.SearchParams?.category == c ? "selected" : null)">
                                     @c
                                 </option>
-
                             }
                         </select>
                     </div>
+
+                    <!-- From date input -->
                     <div class="col-md-2">
                         <input type="date" name="from" class="form-control" value="@(ViewBag.SearchParams?.from is DateTime fd ? fd.ToString("yyyy-MM-dd") : "")" />
                     </div>
+
+                    <!-- To date input -->
                     <div class="col-md-2">
                         <input type="date" name="to" class="form-control" value="@(ViewBag.SearchParams?.to is DateTime td ? td.ToString("yyyy-MM-dd") : "")" />
                     </div>
+
+                    <!-- Search & Reset buttons -->
                     <div class="col-12 mt-2">
                         <button type="submit" class="btn btn-primary">Search</button>
                         <a asp-action="Index" class="btn btn-secondary ms-2">Reset</a>
                     </div>
                 </form>
 
+                <!-- Clear recent searches button -->
                 @if ((IEnumerable<string>)ViewBag.RecentSearches != null && ((IEnumerable<string>)ViewBag.RecentSearches).Any())
                 {
                     <form asp-action="ClearSearches" asp-controller="Events" method="post" class="mt-2">
@@ -49,30 +62,38 @@
                         <button type="submit" class="btn btn-danger">Clear Searches</button>
                     </form>
                 }
-
             </div>
 
+            <!-- Inject HTTP context for session checks -->
             @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
+            <!-- Show Add Event button if admin -->
             @if (HttpContextAccessor.HttpContext.Session.GetString("IsAdmin") == "true")
             {
                 <a asp-action="Add" class="btn btn-success mb-3">Add Event</a>
             }
 
+            <!-- Loop through events and display them -->
             @foreach (var ev in Model)
             {
                 <div class="col-md-6 mb-3">
                     <div class="card h-100 shadow-sm p-3">
+                        <!-- Event title -->
                         <h5 class="card-title">@ev.Title</h5>
+                        
+                        <!-- Category and date info -->
                         <p class="text-muted small">
                             @ev.Category •
                             @ev.StartDate.ToString("dd MMM yyyy, HH:mm")
                             -
                             @ev.EndDate.ToString("HH:mm")
                         </p>
+                        
+                        <!-- Event description -->
                         <p>@ev.Description</p>
                         <p class="small text-muted mb-2">@ev.Location</p>
 
+                        <!-- Optional attachment link -->
                         @if (!string.IsNullOrEmpty(ev.AttachmentPath))
                         {
                             <a href="@Url.Content(ev.AttachmentPath)" target="_blank" class="btn btn-outline-primary btn-sm">
@@ -82,6 +103,7 @@
                     </div>
                 </div>
 
+                <!-- Admin edit/delete buttons -->
                 @if (Context.Session.GetString("IsAdmin") == "true")
                 {
                     <div class="mt-2">
@@ -95,13 +117,16 @@
             }
         </div>
 
+        <!-- Right sidebar -->
         <div class="col-lg-4">
             <div class="card p-3">
                 <h5>Recommended for you</h5>
                 <hr />
+                <!-- Show recommendations partial -->
                 @await Html.PartialAsync("_Recommendations", ViewBag.Recommendations as IEnumerable<MunicipalServicesApp.Models.EventItem>)
                 <hr />
                 <h6>Recent searches</h6>
+                <!-- Display recent searches as badges -->
                 <div style="max-height: 150px; overflow-y:auto;">
                     @foreach (var s in (IEnumerable<string>)ViewBag.RecentSearches ?? new List<string>())
                     {

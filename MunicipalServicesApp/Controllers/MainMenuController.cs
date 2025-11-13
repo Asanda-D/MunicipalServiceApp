@@ -7,7 +7,7 @@ namespace MunicipalServicesApp.Controllers
         // GET: MainMenu
         public ActionResult Index()
         {
-            // For now, no data is needed; just render the Main Menu
+            // No data is needed; just rendering the Main Menu
             return View();
         }
     }
