@@ -1,0 +1,46 @@
+@model IEnumerable<MunicipalServicesApp.Models.Announcement>
+@{
+    ViewData["Title"] = "Announcements";
+}
+
+<div class="container mt-4">
+    @if (TempData["Info"] != null)
+    {
+        <div class="alert alert-info">@TempData["Info"]</div>
+    }
+
+    @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+    @if (HttpContextAccessor.HttpContext.Session.GetString("IsAdmin") == "true")
+    {
+        <a asp-action="Add" class="btn btn-success mb-3">Add Announcement</a>
+    }
+
+    <div class="row">
+        @foreach (var ann in Model)
+        {
+            <div class="col-md-6 mb-3">
+                <div class="card p-3 shadow-sm h-100">
+                    <h5>@ann.Title</h5>
+                    <p>@ann.Message</p>
+                    <p class="small text-muted">Posted: @ann.CreatedAt.ToString("dd MMM yyyy")</p>
+
+                    @if (!string.IsNullOrEmpty(ann.AttachmentPath))
+                    {
+                        <a href="@ann.AttachmentPath" target="_blank" class="btn btn-outline-primary btn-sm">View Attachment</a>
+                    }
+
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("IsAdmin") == "true")
+                    {
+                        <div class="mt-2">
+                            <a asp-action="Edit" asp-route-id="@ann.Id" class="btn btn-warning btn-sm">Edit</a>
+                            <form asp-action="Delete" asp-route-id="@ann.Id" method="post" style="display:inline;">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

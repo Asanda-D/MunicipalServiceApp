@@ -9,6 +9,9 @@ namespace MunicipalServicesApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //Services for Announcements
+            builder.Services.AddSingleton<AnnouncementsService>();
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -21,6 +24,8 @@ namespace MunicipalServicesApp
             // Services for RequestsService
             builder.Services.AddSingleton<RequestsService>();
 
+            
+
             // Configure session
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
@@ -31,6 +36,9 @@ namespace MunicipalServicesApp
             });
 
             var app = builder.Build();
+
+            var announcementService = app.Services.GetRequiredService<AnnouncementsService>();
+            announcementService.Seed();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
