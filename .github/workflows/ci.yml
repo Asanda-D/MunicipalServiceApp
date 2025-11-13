@@ -31,7 +31,7 @@ jobs:
         continue-on-error: true
 
       - name: Snyk Scan
-        uses: snyk/actions@v2
+        uses: snyk/actions/dotnet@master
         with:
           command: test
           package-manager: dotnet
