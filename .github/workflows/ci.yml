@@ -30,9 +30,11 @@ jobs:
         run: dotnet test ./MunicipalServicesApp/MunicipalServicesApp.csproj --no-build --verbosity normal
         continue-on-error: true
 
-      - name: Run Snyk scan
-        uses: snyk/actions/dotnet@master
+      - name: Snyk Scan
+        uses: snyk/actions@v2
         with:
           command: test
+          package-manager: dotnet
+          project-path: ./MunicipalServicesApp/MunicipalServicesApp.csproj
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
