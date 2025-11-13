@@ -18,13 +18,13 @@ jobs:
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.0.x' # or 7.x if you prefer
+          dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore MunicipalServicesApp.sln
 
       - name: Build project
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build MunicipalServicesApp.sln --configuration Release
 
       - name: Run Snyk scan
         uses: snyk/actions/dotnet@master
