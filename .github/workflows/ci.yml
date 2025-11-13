@@ -31,9 +31,10 @@ jobs:
         continue-on-error: true
 
       - name: Snyk Scan
-        uses: snyk/actions@master   
+        uses: snyk/actions@master
         with:
           command: test
-          args: ./MunicipalServicesApp/MunicipalServicesApp.csproj
-        env:
+          args: .
+          working-directory: ./MunicipalServicesApp
+          env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
