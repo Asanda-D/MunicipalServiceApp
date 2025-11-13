@@ -73,32 +73,49 @@ The system demonstrates practical use of MVC architecture, session-based authent
 
  ```
  MunicipalServicesApp/
+ ├─ .github/
+ │   ├─ workflows/
+ │       └─ ci.yml
  ├─ Controllers/
  │   ├─ HomeController.cs
  │   ├─ MainMenuController.cs
  │   ├─ EventsController.cs
  │   ├─ AdminController.cs
- │   └─ ReportIssuesController.cs
+ │   ├─ ReportIssuesController.cs
+ │   └─ ServiceRequestsController.cs
  ├─ Models/
  │   ├─ Event.cs
- │   └─ Issue.cs
+ │   ├─ Issue.cs
+ │   └─ ServiceRequest.cs
  ├─ Services/
- │   └─ EventsService.cs
+ │   ├─ DataStructures/
+ │   │   ├─ BinarySearchTree.cs
+ │   │   ├─ Graph.cs
+ │   │   └─ MinHeap.cs
+ │   ├─ EventsService.cs
+ │   └─ RequestsService.cs
  ├─ Views/
  │   ├─ Admin/
- │   │   ├─ Login.cshtml
+ │   │   └─ Login.cshtml
  │   ├─ Events/
  │   │   ├─ Index.cshtml
  │   │   ├─ Add.cshtml
  │   │   ├─ Edit.cshtml
- │   │   ├─ _Recommendations.cshtml
+ │   │   └─ _Recommendations.cshtml
  │   ├─ Home/
- │   │   ├─ Index.cshtml
+ │   │   └─ Index.cshtml
  │   ├─ MainMenu/
- │   │   ├─ Index.cshtml
+ │   │   └─ Index.cshtml
  │   ├─ ReportIssues/
  │   │   ├─ Create.cshtml
- │   │   ├─ list.cshtml
+ │   │   └─ list.cshtml
+ │   ├─ ServiceRequests/
+ │   │   ├─ Create.cshtml
+ │   │   ├─ Delete.cshtml
+ │   │   ├─ Details.cshtml
+ │   │   ├─ Edit.cshtml
+ │   │   ├─ Index.cshtml
+ │   │   └─ Track.cshtml
  │   └─ Shared/
  │       └─ _Layout.cshtml
  ├─ wwwroot/
