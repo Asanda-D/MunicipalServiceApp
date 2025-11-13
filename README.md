@@ -40,7 +40,7 @@ The system demonstrates practical use of MVC architecture, session-based authent
 
  1. **Clone the Repository**  
     ```
-    git clone https://github.com/YourUsername/MunicipalServicesApp.git
+    git clone https://github.com/Asanda-D/MunicipalServiceApp.git
     cd MunicipalServicesApp
     ```
 
@@ -74,22 +74,31 @@ The system demonstrates practical use of MVC architecture, session-based authent
  ```
  MunicipalServicesApp/
  ├─ Controllers/
+ │   ├─ HomeController.cs
+ │   ├─ MainMenuController.cs
  │   ├─ EventsController.cs
- │   └─ AdminController.cs
+ │   ├─ AdminController.cs
  │   └─ ReportIssuesController.cs
  ├─ Models/
- │   └─ Event.cs
+ │   ├─ Event.cs
  │   └─ Issue.cs
  ├─ Services/
  │   └─ EventsService.cs
  ├─ Views/
- │   ├─ ReportIssues/
- │   │   ├─ Create.cshtml
- │   │   ├─ list.cshtml
+ │   ├─ Admin/
+ │   │   ├─ Login.cshtml
  │   ├─ Events/
  │   │   ├─ Index.cshtml
  │   │   ├─ Add.cshtml
  │   │   ├─ Edit.cshtml
+ │   │   ├─ _Recommendations.cshtml
+ │   ├─ Home/
+ │   │   ├─ Index.cshtml
+ │   ├─ MainMenu/
+ │   │   ├─ Index.cshtml
+ │   ├─ ReportIssues/
+ │   │   ├─ Create.cshtml
+ │   │   ├─ list.cshtml
  │   └─ Shared/
  │       └─ _Layout.cshtml
  ├─ wwwroot/
