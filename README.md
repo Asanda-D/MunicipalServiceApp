@@ -159,9 +159,11 @@ var recentSearch = recentSearchQueue.Peek();  // Most recent search
  │   ├─ MainMenuController.cs
  │   ├─ EventsController.cs
  │   ├─ AdminController.cs
+ │   ├─ AnnouncementsController.cs
  │   ├─ ReportIssuesController.cs
  │   └─ ServiceRequestsController.cs
  ├─ Models/
+ │   ├─ EAnnouncement.cs
  │   ├─ Event.cs
  │   ├─ Issue.cs
  │   └─ ServiceRequest.cs
@@ -170,11 +172,16 @@ var recentSearch = recentSearchQueue.Peek();  // Most recent search
  │   │   ├─ BinarySearchTree.cs
  │   │   ├─ Graph.cs
  │   │   └─ MinHeap.cs
+ │   ├─ AnnouncementsService.cs
  │   ├─ EventsService.cs
  │   └─ RequestsService.cs
  ├─ Views/
  │   ├─ Admin/
  │   │   └─ Login.cshtml
+ │   ├─ Announcements/
+ │   │   ├─ Index.cshtml
+ │   │   ├─ Add.cshtml
+ │   │   └─ Edit.cshtml
  │   ├─ Events/
  │   │   ├─ Index.cshtml
  │   │   ├─ Add.cshtml
